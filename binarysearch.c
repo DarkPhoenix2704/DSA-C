@@ -1,48 +1,38 @@
 #include<stdio.h>
 
 void main() {
-    int a[50], i, j, n, elt, temp, flag = 0, low = 0, high, mid;
-    printf("\n\tBINARY SEARCH");
-    printf("\n\t_______________\n\n");
-    printf("\n\tEnter the limit:");
-    scanf("%d", & n);
-    printf("\n\tEnter the elements:");
-    for (i = 0; i < n; i++) {
-        scanf("%d", & a[i]);
+    int arr[50], num, size, i, temp, end, mid, j, beg = 0;
+    printf("Enter the size of the array:- ");
+    scanf("%d", & size);
+    printf("Enter the elements of the array\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", & arr[i]);
     }
-    printf("\n\n\tThe elements are:");
-    for (i = 0; i < n; i++) {
-        printf("\t%d", a[i]);
-    }
-    for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - 1 - i; j++) {
-            if (a[j] > a[j + 1]) {
-                temp = a[j];
-                a[j] = a[j + 1];
-                a[j + 1] = temp;
+    printf("\n\nSorting array......");
+    for (i = 0; i < size; i++) {
+        for (j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
             }
         }
     }
-    printf("\n\n\tThe sorted array is");
-    for (i = 0; i < n; i++) {
-        printf("\t%d", a[i]);
-    }
-    printf("\n\n\tEnter the element to be searched:");
-    scanf("%d", & elt);
-    high = n - 1;
-    while (low <= high) {
-        mid = (low + high) / 2;
-        if (elt < a[mid]) {
-            high = mid - 1;
-        } else if (elt > a[mid]) {
-            low = mid + 1;
-        } else {
-            printf("\n\n\tThe element is present");
-            flag = 1;
+    printf("\n\nEnter the element to be searched:- ");
+    scanf("%d", & num);
+    end = size - 1;
+    while (beg <= end) {
+        mid = (beg + end) / 2;
+        if (num < arr[mid]) {
+            end = mid - 1;
+        } else if (num > arr[mid]) {
+            beg = mid + 1;
+        } else if (num == arr[mid]) {
+            printf("\n\nElement Found !!!!!!!!!");
             break;
         }
     }
-    if (flag == 0) {
-        printf("\n\n\tThe element is not present");
+    if (beg > end) {
+        printf("\n\nElement not Found!!!!!!!");
     }
 }
