@@ -1,67 +1,59 @@
-#include<stdio.h>
+#include <stdio.h>
 
 void main() {
-    int no, i, front = 0, rear = 0, k, queue[50], element, size, next = 1;
-    char c;
-    printf("\n\tPROGRAM TO INSERT, DELETE AND DISPLAY ELEMENTS TO CIRCULARQUEUE");
-    printf("\n\t.......................................................");
-    printf("\n\tEnter the size of the queue: ");
-    scanf("%d", & size);
+    int MAX_SIZE, CHOICE, REAR = -1, FRONT = -1, Q[50], ITEM, i;
+    char CONT;
+    printf("\nProgram to Insert, Delete or Display an elements from a Circular QUEUE");
+    printf("\n________________________________________________________________");
+    printf("\nEnter the size of the Circular QUEUE: ");
+    scanf("%d", & MAX_SIZE);
     do {
-        printf("\n\t\t\t\tMENU\n\n");
-        printf("\t\t1.INSERT\n\t\t2.DELETE\n\t\t3.DISPLAY\n\t\t4.EXIT\n\t\tEnter your choice: ");
-        scanf("%d", & no);
-        if (no == 1) {
-            if (rear == size - 1) {
-                printf("\n overflow ");
-            }
-            printf("\t\tEnter the element: ");
-            scanf("%d", & element);
-            if (front == 0 && rear == 0) {
-                front = rear = 1;
-                queue[rear] = element;
+        printf("\nMENU");
+        printf("\n____");
+        printf("\n\n1.Insertion\n2.Deletion\n3.Display\n4.Exit");
+        printf("\n\n\nEnter your Choice  ");
+        scanf("%d", & CHOICE);
+        if (CHOICE == 1) {
+            printf("\n\nEnter the element to inserted ");
+            scanf("%d", & ITEM);
+            if (FRONT == (REAR + 1) % MAX_SIZE) {
+                printf("\n\nCircular Queue is Full");
+            } else if (FRONT == -1) {
+                FRONT = 0;
+                REAR = 0;
+                Q[REAR] = ITEM;
+                printf("\n\nValue is inserted");
             } else {
-                next = (rear % size) + 1;
-                if (next == front)
-                    printf("\t\tOverflow\n");
-                else {
-                    rear = next;
-                    queue[rear] = element;
+                REAR = (REAR + 1) % MAX_SIZE;
+                Q[REAR] = ITEM;
+                printf("\n\nValue is inserted");
+            }
+        } else if (CHOICE == 2) {
+            if (FRONT == -1) {
+                printf("\n\nCircular Queue is Empty");
+            } else if (FRONT == REAR) {
+                FRONT = -1;
+                REAR = -1;
+                printf("\n\nElement is deleted");
+            } else {
+                FRONT = (FRONT + 1) % MAX_SIZE;
+                printf("\n\nElement is deleted");
+            }
+        } else if (CHOICE == 3) {
+            if (FRONT == -1) {
+                printf("\n\nCircular Queue is Empty");
+            } else {
+                printf("\n\nCircular Queue is\n");
+                for (i = FRONT; i <= REAR; i++) {
+                    printf("\t%d", Q[i]);
                 }
             }
+
+        } else {
+            printf("\n\nInvalid Input!!!!!!!!!!!!!!");
         }
-        if (no == 2) {
-            if (front == 0)
-                printf("\t\tUnderflow\n");
-            else {
-                k = queue[front];
-                printf("\t\tDeleted element is %d\n", k);
-            }
-            if (front == rear)
-                front = rear = 0;
-            else
-                front = (front % size) + 1;
-        }
-        if (no == 3) {
-            if (front == 0 && rear == 0)
-                printf("\t\tUnderflow\n");
-            else {
-                printf("\t\tQueue elements are");
-                if (front < rear) {
-                    for (i = front; i <= rear; i++)
-                        printf("\n\t%d\t", queue[i]);
-                } else {
-                    for (i = front; i <= size; i++)
-                        printf("\n\t\t%d", queue[i]);
-                    for (i = 1; i <= rear; i++)
-                        printf("\n\t\t%d", queue[i]);
-                }
-            }
-        }
-        if (no == 4)
-            break;
-        printf("\t\tDo you want to continue(y/n):");
-        scanf("%s", & c);
-    }
-    while (c == 'y' || c == 'Y');
+        printf("\n\n\nDo you wany to continue? (Y/N) ");
+        getchar();
+        scanf("%c", & CONT);
+    } while (CONT == 'Y' || CONT == 'y');
 }
