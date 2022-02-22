@@ -1,4 +1,5 @@
 #include<stdio.h>
+
 #include<string.h>
 
 void push(char);
@@ -8,9 +9,9 @@ void read();
 int top = -1, top1 = -1, j = 0, i, x, y;
 char stk[50], stk1[50], a[50], ch, post[50];
 void main() {
-    printf("\n\n\tProgram for Infix to Postfix Evaluation");
-    printf("\n\t----------------------------------------\n");
-    printf("\n\tEnter the expression: ");
+    printf("\nProgram for Infix to Postfix Evaluation");
+    printf("\n_______________________________________");
+    printf("\nEnter the expression ");
     gets(a);
     for (i = 0; a[i] != '\0'; i++) {
         ch = a[i];
@@ -30,22 +31,24 @@ void main() {
         case '^':
         case '/':
         case '*':
-            if (top == -1 || stk[top] == '(')
+            if (top == -1 || stk[top] == '(') {
                 push(ch);
-            else {
+            } else {
                 x = priority(ch);
                 y = priority(stk[top]);
                 if (y >= x) {
                     post[j++] = stk[top];
                     top--;
                     push(ch);
-                } else
+                } else {
                     push(ch);
+                }
             }
             break;
         default:
-            if (isalpha(ch))
+            if (isalpha(ch)) {
                 post[j++] = ch;
+            }
             break;
         }
     }
@@ -54,7 +57,7 @@ void main() {
         top--;
     }
     post[j] = '\0';
-    printf("\n\tPostfix expression: ");
+    printf("\nPostfix expresiion is \t");
     puts(post);
     read();
 }
@@ -67,21 +70,22 @@ void push1(int ch) {
     stk1[top1] = ch;
 }
 int priority(char c) {
-    if (c == 't' || c == '-')
+    if (c == '+' || c == '-') {
         return 1;
-    else if (c == '*' || c == '/')
+    } else if (c == '*' || c == '/') {
         return 2;
-    else if (c == '^')
+    } else if (c == '^') {
         return 3;
-    else
+    } else {
         return 0;
+    }
 }
 void read() {
     int c, o1, o2;
     for (i = 0; post[i] != '\0'; i++) {
         ch = post[i];
         if (isalpha(ch)) {
-            printf("\n\tEnter the value for %c: ", ch);
+            printf("\nEnter the value for %c ", ch);
             scanf("%d", & c);
             push1(c);
         } else {
@@ -111,5 +115,5 @@ void read() {
             push1(x);
         }
     }
-    printf("\n\tValue of the expression is %d", stk1[top1]);
+    printf("\nValue of Expresiion is %d ", stk1[top1]);
 }
