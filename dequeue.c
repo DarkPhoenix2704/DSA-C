@@ -1,87 +1,83 @@
-#include<stdio.h>
+#include <stdio.h>
 
 void main() {
-    int no, i, front = -1, rear = -1, k, queue[50], element, n;
-    char c;
-    printf("\n\tPROGRAM TO INSERT, DELETE AND DISPLAY ELEMENTS TO DEQUEUE\n");
-    printf("\t.......................................................");
-    printf("\n\tEnter the size of the queue: ");
-    scanf("%d", & n);
+    int MAX_SIZE, CHOICE, REAR = -1, FRONT = -1, Q[50], ITEM, i;
+    char CONT;
+    printf("\nProgram to ENQUEUE, DEQUEUE or display an element from a QUEUE");
+    printf("\n______________________________________________________________");
+    printf("\nEnter the size of the QUEUE: ");
+    scanf("%d", & MAX_SIZE);
     do {
-        printf("\t\t\t\tMENU\n");
-        printf("\t\t1.INSERT_FRONT\n\t\t2.INSERT_END\n\t\t3.DELETE_FRONT\n\t\t4.DELETE_END\n\t\t5.DISPLAY\n\t\t6.EXIT\n\t\tEnter your choice: ");
-        scanf("%d", & no);
-        if (no == 1) {
-            if (front == 0)
-                printf("\t\tOverflow\n");
-            else {
-                printf("\t\tEnter the element: ");
-                scanf("%d", & element);
-                if (front == -1) {
-                    front = 0;
-                    rear = 0;
-                    queue[front] = element;
-                } else if (front != 0) {
-                    front = front - 1;
-                    queue[front] = element;
-                }
-            }
-        }
-        if (no == 2) {
-            if (rear == n - 1)
-                printf("\t\tOverflow\n");
-            else {
-                printf("\t\tEnter the element: ");
-                scanf("%d", & element);
-                if (front == -1) {
-                    front = rear = 0;
-                    queue[rear] = element;
+        printf("\nMENU");
+        printf("\n____");
+        printf("\n1.ENQUEUE at REAR end\n2.ENQUEUE at FRONTEND\n3.DEQUEUE from Front End\n4.DEQUEUE From Rear END \n5.Display\n6.Exit");
+        printf("\n\nEnter your Choice  ");
+        scanf("%d", & CHOICE);
+        if (CHOICE == 1) {
+            if (REAR == MAX_SIZE - 1) {
+                printf("\nQueue is Full");
+            } else {
+                printf("\nEnter the number to be queued ");
+                scanf("%d", & ITEM);
+                if (FRONT == -1) {
+                    FRONT = 0;
+                    REAR = 0;
                 } else {
-                    rear = rear + 1;
-                    queue[rear] = element;
+                    REAR = REAR + 1;
+                }
+                Q[REAR] = ITEM;
+            }
+        } else if (CHOICE == 2) {
+            if (FRONT == 0) {
+                printf("\nQueue is Full");
+            } else {
+                printf("\nEnter the number to be queued ");
+                scanf("%d", & ITEM);
+                if (FRONT == -1) {
+                    FRONT = 0;
+                    REAR = 0;
+                    Q[FRONT] = ITEM;
+                } else {
+                    FRONT = FRONT - 1;
+                    Q[FRONT] = ITEM;
                 }
             }
-        }
-        if (no == 3) {
-            if (front == -1)
-                printf("\t\tUnderflow\n");
-            else {
-                k = queue[front];
-                printf("\t\tDeleted element is %d ", k);
-                printf("\n");
-                if (front == rear)
-                    front = rear = -1;
-                else
-                    front++;
+        } else if (CHOICE == 3) {
+            if (FRONT == -1) {
+                printf("\nQueue is Empty");
+            } else {
+                if (FRONT == REAR) {
+                    FRONT = -1;
+                    REAR = -1;
+                } else {
+                    FRONT = FRONT + 1;
+                }
+                printf("\nDEQUEUE Operation Succesfull");
             }
-        }
-        if (no == 4) {
-            if (rear == -1)
-                printf("\t\tUnderflow\n");
-            else {
-                k = queue[rear];
-                printf("\t\tDeleted element is %d ", k);
-                printf("\n");
-                if (front == rear)
-                    front = rear = -1;
-                else
-                    rear--;
+        } else if (CHOICE == 4) {
+            if (REAR == -1) {
+                printf("\nQueue is Empty");
+            } else {
+                if (FRONT == REAR) {
+                    FRONT = REAR - 1;
+                } else {
+                    REAR--;
+                }
+
             }
-        }
-        if (no == 5) {
-            if (front == -1 && rear == -1)
-                printf("\t\tUnderflow\n");
-            else {
-                printf("\t\tQueue elements are ");
-                for (i = front; i <= rear; i++)
-                    printf("%d ", queue[i]);
-                printf("\n");
+        } else if (CHOICE == 5) {
+            if (FRONT == -1 && REAR == -1) {
+                printf("\nQueue is Empty");
+            } else {
+                printf("\nThe Queue is:");
+                for (i = FRONT; i <= REAR; i++) {
+                    printf("\t%d", Q[i]);
+                }
             }
+        } else {
+            printf("\nInvalid Input!!!!!!!!!!!!!!");
         }
-        if (no == 6)
-            break;
-        printf("\t\tDo you want to continue(y/n) ");
-        scanf(" %s", & c);
-    }
-    while (c == 'y' || c == 'Y');
+        printf("\nDo you wany to continue? (Y/N)");
+        scanf("%s", & CONT);
+    } while (CONT == 'Y' || CONT == 'y');
 }
