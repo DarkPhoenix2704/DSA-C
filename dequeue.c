@@ -1,83 +1,84 @@
-#include <stdio.h>
-
+#include<stdio.h>
 void main() {
-    int MAX_SIZE, CHOICE, REAR = -1, FRONT = -1, Q[50], ITEM, i;
-    char CONT;
-    printf("\nProgram to ENQUEUE, DEQUEUE or display an element from a QUEUE");
-    printf("\n______________________________________________________________");
-    printf("\nEnter the size of the QUEUE: ");
-    scanf("%d", & MAX_SIZE);
+    int arr[50], maxSize, choice, option, front = -1, rear = -1, item;
+    printf("Enter the size of DEQUEUE: ");
+    scanf("%d", &maxSize);
     do {
-        printf("\nMENU");
-        printf("\n____");
-        printf("\n1.ENQUEUE at REAR end\n2.ENQUEUE at FRONTEND\n3.DEQUEUE from Front End\n4.DEQUEUE From Rear END \n5.Display\n6.Exit");
-        printf("\n\nEnter your Choice  ");
-        scanf("%d", & CHOICE);
-        if (CHOICE == 1) {
-            if (REAR == MAX_SIZE - 1) {
-                printf("\nQueue is Full");
+        printf("1.Insert Front\n2.Insert RearEnd\n3.Delete Front\n4.Delete Rear\n5.Display ");
+        printf("\nEnter the opton: ");
+        scanf("%d", &option);
+        if (option == 1) {
+            if (front == 0) {
+                printf("\nQueue Overflow");
             } else {
-                printf("\nEnter the number to be queued ");
-                scanf("%d", & ITEM);
-                if (FRONT == -1) {
-                    FRONT = 0;
-                    REAR = 0;
-                } else {
-                    REAR = REAR + 1;
+                printf("\nEnter the element to be Inserted: ");
+                scanf("%d", &item);
+                if (front == -1)
+                {
+                    front = 0;
+                    rear = 0;
+                    arr[front] = item;
                 }
-                Q[REAR] = ITEM;
+                front--;
+                arr[front] = item;
             }
-        } else if (CHOICE == 2) {
-            if (FRONT == 0) {
-                printf("\nQueue is Full");
+        } else if(option == 2) {
+            if (rear == maxSize - 1)
+            {
+                printf("\nQueue overflow");
             } else {
-                printf("\nEnter the number to be queued ");
-                scanf("%d", & ITEM);
-                if (FRONT == -1) {
-                    FRONT = 0;
-                    REAR = 0;
-                    Q[FRONT] = ITEM;
-                } else {
-                    FRONT = FRONT - 1;
-                    Q[FRONT] = ITEM;
+                if (front == -1)
+                {
+                    front = 0;
                 }
+                printf("\nEnter the element to be Inserted: ");
+                scanf("%d", &item);
+                rear++;
+                arr[rear] = item;
             }
-        } else if (CHOICE == 3) {
-            if (FRONT == -1) {
+        } else if (option == 3) {
+            if (front == -1)
+            {
                 printf("\nQueue is Empty");
+            } else if( front == rear) {
+                item = arr[front];
+                front = -1;
+                rear = -1;
+                printf("\n %d id removed", item);
             } else {
-                if (FRONT == REAR) {
-                    FRONT = -1;
-                    REAR = -1;
-                } else {
-                    FRONT = FRONT + 1;
-                }
-                printf("\nDEQUEUE Operation Succesfull");
-            }
-        } else if (CHOICE == 4) {
-            if (REAR == -1) {
-                printf("\nQueue is Empty");
-            } else {
-                if (FRONT == REAR) {
-                    FRONT = REAR - 1;
-                } else {
-                    REAR--;
-                }
+                item = arr[front];
+                front++;
+                printf("\n %d id removed", item);
 
             }
-        } else if (CHOICE == 5) {
-            if (FRONT == -1 && REAR == -1) {
+        } else if (option == 4) {
+            if (rear == -1)
+            {
+                printf("\n Queue underflow");
+            } else if( rear == front ) {
+                item = arr[rear];
+                rear = -1;
+                front = -1;
+                printf("\n %d id removed", item);
+            } else {
+                item = arr[rear];
+                rear--;
+                printf("\n %d id removed", item);
+            }
+        } else if (option == 5) {
+            if (front == -1) {
                 printf("\nQueue is Empty");
             } else {
-                printf("\nThe Queue is:");
-                for (i = FRONT; i <= REAR; i++) {
-                    printf("\t%d", Q[i]);
-                }
+                printf("\nThe elements are  ");
+                for (int i = front; i <= rear; i++) {
+                    printf("\t%d", arr[i]);
+                }  
             }
         } else {
-            printf("\nInvalid Input!!!!!!!!!!!!!!");
+            printf("\nInvalid Option");
         }
-        printf("\nDo you wany to continue? (Y/N)");
-        scanf("%s", & CONT);
-    } while (CONT == 'Y' || CONT == 'y');
+        printf("\nDo you want to continue? (Yes - 1 / No - 0): ");
+        scanf("%d", &choice);
+    } while (choice == 1);
+    
 }
